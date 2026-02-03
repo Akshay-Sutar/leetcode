@@ -1,6 +1,5 @@
 //  leetcode.com/problems/remove-duplicates-from-sorted-array/description/
 var removeDuplicates = function (nums) {
-    let shift = 0;
     for (let i = 0; i < nums.length; ++i) {
         if (nums[i] === "_") {
             return i;
@@ -16,21 +15,9 @@ var removeDuplicates = function (nums) {
 
             // shift from j to len - 1
             let diff = j - i - 1;
-
-            for (let k = j; k < nums.length - shift; ++k) {
-                nums[k - diff] = nums[k];
-            }
-
-            shift += diff;
-
-
-            for (let k = nums.length - shift; k < nums.length; ++k) {
-                nums[k] = "_";
-            }
-
+            nums.splice(i, diff)
+            nums.push(...Array(diff).fill("_"))
         }
     }
-
 };
 const res = removeDuplicates([0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 4]);
-console.log('res', res)
